@@ -6,50 +6,61 @@
   <title>CMS Headset Update — Sept 22–23</title>
   <link rel="stylesheet" href="css/style.css" />
 </head>
-<body>
+<body class="gate-open">
+  <div id="name-gate" class="name-gate">
+    <div class="name-gate-card">
+      <h2>Who are you?</h2>
+      <p>Select your name to see your route for Sept 22–23.</p>
+      <div id="name-gate-grid" class="name-gate-grid"></div>
+    </div>
+  </div>
+
   <header class="app-header">
     <h1>CMS Headset Update Tour</h1>
     <p class="subtitle">Charlotte-Mecklenburg Schools · Tue Sept 22 – Wed Sept 23, 2026 · Team routes, live status &amp; campus notes</p>
   </header>
 
-  <div id="config-banner" class="banner warn"></div>
+  <div id="app-content">
+    <div id="config-banner" class="banner warn"></div>
 
-  <div class="tabs">
-    <button class="active" data-tab="route">My Route</button>
-    <button data-tab="board">Team Board</button>
-    <button data-tab="notes">Campus Notes</button>
+    <div class="tabs">
+      <button class="active" data-tab="route">My Route</button>
+      <button data-tab="board">Team Board</button>
+      <button data-tab="notes">Campus Notes</button>
+    </div>
+
+    <main>
+      <section id="view-route" class="view active">
+        <div class="who-row">
+          <label for="member-select">I am:</label>
+          <select id="member-select"></select>
+          <button id="switch-identity" type="button" class="switch-link">Not you? Switch</button>
+          <label for="author-name">Your name for notes:</label>
+          <input id="author-name" type="text" placeholder="e.g. Ben H." />
+        </div>
+
+        <div id="next-banner" class="next-banner"></div>
+
+        <div id="route-days"></div>
+      </section>
+
+      <section id="view-board" class="view">
+        <p class="subtitle" style="margin-bottom:12px;">Live view of every team member's route and stop status, side by side.</p>
+        <div id="board-wrap" class="board-table-wrap"></div>
+      </section>
+
+      <section id="view-notes" class="view">
+        <div class="notes-browser">
+          <input id="notes-search" type="search" placeholder="Search campuses…" />
+          <div id="notes-browser-list"></div>
+        </div>
+      </section>
+    </main>
+
+    <footer class="app-footer">
+      Schedule is a first-pass draft grouped by region — adjust assignments in <code>js/data.js</code> as needed.
+    </footer>
   </div>
-
-  <main>
-    <section id="view-route" class="view active">
-      <div class="who-row">
-        <label for="member-select">I am:</label>
-        <select id="member-select"></select>
-        <label for="author-name">Your name for notes:</label>
-        <input id="author-name" type="text" placeholder="e.g. Ben H." />
-      </div>
-
-      <div id="next-banner" class="next-banner"></div>
-
-      <div id="route-days"></div>
-    </section>
-
-    <section id="view-board" class="view">
-      <p class="subtitle" style="margin-bottom:12px;">Live view of every team member's route and stop status, side by side.</p>
-      <div id="board-wrap" class="board-table-wrap"></div>
-    </section>
-
-    <section id="view-notes" class="view">
-      <div class="notes-browser">
-        <input id="notes-search" type="search" placeholder="Search campuses…" />
-        <div id="notes-browser-list"></div>
-      </div>
-    </section>
-  </main>
-
-  <footer class="app-footer">
-    Schedule is a first-pass draft grouped by region — adjust assignments in <code>js/data.js</code> as needed.
-  </footer>
 
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.js"></script>
   <script src="js/data.js"></script>

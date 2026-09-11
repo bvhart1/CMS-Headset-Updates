@@ -153,6 +153,32 @@ function escapeHtml(str) {
 }
 
 // ---------------------------------------------------------------------
+// Name gate — block the app until someone picks who they are
+// ---------------------------------------------------------------------
+function renderNameGate() {
+  const grid = document.getElementById("name-gate-grid");
+  const lastId = localStorage.getItem("cms_member_id");
+  grid.innerHTML = TEAM.map(
+    (t) => `<button data-id="${t.id}" class="${t.id === lastId ? "last-selected" : ""}">${t.name}</button>`
+  ).join("");
+  grid.querySelectorAll("button").forEach((btn) => {
+    btn.addEventListener("click", () => chooseIdentity(btn.dataset.id));
+  });
+}
+
+function chooseIdentity(memberId) {
+  ui.memberId = memberId;
+  localStorage.setItem("cms_member_id", memberId);
+  document.body.classList.remove("gate-open");
+  render();
+}
+
+function openNameGate() {
+  renderNameGate();
+  document.body.classList.add("gate-open");
+}
+
+// ---------------------------------------------------------------------
 // Rendering
 // ---------------------------------------------------------------------
 function render() {
@@ -418,14 +444,21 @@ function initControls() {
     ui.noteFilter = e.target.value;
     renderNotesBrowser();
   });
+
+  document.getElementById("switch-identity").addEventListener("click", () => {
+    openNameGate();
+  });
 }
 
 async function boot() {
   initTabs();
   initControls();
-  store.onChange(render);
+  openNameGate();
+  store.onChange(() => {
+    if (!document.body.classList.contains("gate-open")) render();
+  });
   await store.init();
-  render();
+  if (!document.body.classList.contains("gate-open")) render();
 }
 
 boot();
