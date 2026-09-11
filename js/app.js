@@ -14,6 +14,10 @@ const STATUS_LABELS = {
 
 const STATUS_ORDER = ["pending", "in-progress", "done", "flagged"];
 
+function directionsUrl(address) {
+  return `https://www.google.com/maps/dir/?api=1&destination=${encodeURIComponent(address)}&travelmode=driving`;
+}
+
 // ---------------------------------------------------------------------
 // Data store: talks to Supabase when configured, otherwise falls back to
 // localStorage (per-device only) so the site is usable before setup.
@@ -245,6 +249,7 @@ function renderNextBanner(mine) {
     <div class="label">${label} — ${DAY_LABELS[next.day]}</div>
     <div class="school">${escapeHtml(next.school)}</div>
     <div class="meta">${next.start}–${next.end} · ${escapeHtml(next.zone)} zone · Contact: ${escapeHtml(next.contact)}</div>
+    <a class="directions-btn on-banner" href="${directionsUrl(next.address)}" target="_blank" rel="noopener">🧭 Directions</a>
   `;
 }
 
@@ -261,12 +266,14 @@ function stopCardHtml(s) {
             <span class="zone-badge">${escapeHtml(s.zone)}</span>
           </div>
           <div class="stop-school">${escapeHtml(s.school)}</div>
+          <a class="directions-btn" href="${directionsUrl(s.address)}" target="_blank" rel="noopener">🧭 Directions</a>
         </div>
         <span class="pill big ${status}">${STATUS_LABELS[status]}</span>
       </div>
       <details class="stop-details">
-        <summary>Contact &amp; campus hours</summary>
+        <summary>Contact, address &amp; campus hours</summary>
         <div class="stop-contact">${escapeHtml(s.contact)} · ${escapeHtml(s.email)}</div>
+        <div class="stop-contact">${escapeHtml(s.address)}</div>
         <div class="stop-contact">Campus hours: ${escapeHtml(s.hours)}</div>
       </details>
       <div class="status-buttons">
@@ -351,7 +358,7 @@ function boardStopHtml(s) {
   return `
     <div class="board-stop">
       <div class="b-time">${s.start}–${s.end} · ${escapeHtml(s.zone)}</div>
-      <div class="b-school">${escapeHtml(s.school)}</div>
+      <div class="b-school">${escapeHtml(s.school)} <a href="${directionsUrl(s.address)}" target="_blank" rel="noopener" title="Directions">🧭</a></div>
       <span class="pill ${status}">${STATUS_LABELS[status]}</span>
     </div>
   `;

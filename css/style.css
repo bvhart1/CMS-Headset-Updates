@@ -229,6 +229,30 @@ section.view.active {
   margin: 2px 0 6px;
 }
 
+.directions-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  background: var(--brand);
+  color: #fff;
+  text-decoration: none;
+  font-size: 0.82rem;
+  font-weight: 600;
+  padding: 6px 12px;
+  border-radius: 7px;
+  margin-top: 2px;
+}
+
+.directions-btn:hover {
+  background: var(--brand-dark);
+}
+
+.directions-btn.on-banner {
+  background: #fff;
+  color: var(--brand-dark);
+  margin-top: 8px;
+}
+
 .stop-contact {
   font-size: 0.85rem;
   color: var(--text-muted);
@@ -429,6 +453,11 @@ table.board td.member-cell {
 
 .board-stop .b-school {
   font-weight: 500;
+}
+
+.board-stop .b-school a {
+  text-decoration: none;
+  margin-left: 2px;
 }
 
 /* Notes browser */
