@@ -198,14 +198,32 @@ function renderRoute() {
     .map((dayKey) => {
       const stops = byDay[dayKey];
       if (!stops.length) return "";
+      const pieces = [];
+      stops.forEach((s, i) => {
+        if (i > 0) pieces.push(travelGapHtml(stops[i - 1], s));
+        pieces.push(stopCardHtml(s));
+      });
       return `
         <div class="day-heading">${DAY_LABELS[dayKey]}</div>
-        ${stops.map((s) => stopCardHtml(s)).join("")}
+        ${pieces.join("")}
       `;
     })
     .join("");
 
   wireStopCardEvents(container);
+}
+
+function travelGapHtml(prev, next) {
+  const gap = parseTimeToMinutes(next.start) - parseTimeToMinutes(prev.end);
+  const sameZone = prev.zone === next.zone;
+  const tight = gap < 20;
+  return `
+    <div class="travel-gap ${tight ? "tight" : ""}">
+      <span class="travel-icon">🚗</span>
+      <span>${gap} min buffer${sameZone ? "" : ` — heads to ${escapeHtml(next.zone)} zone`}</span>
+      <span class="travel-note">(estimate — confirm real drive time)</span>
+    </div>
+  `;
 }
 
 function renderNextBanner(mine) {
@@ -226,7 +244,7 @@ function renderNextBanner(mine) {
   banner.innerHTML = `
     <div class="label">${label} — ${DAY_LABELS[next.day]}</div>
     <div class="school">${escapeHtml(next.school)}</div>
-    <div class="meta">${next.start}–${next.end} · Contact: ${escapeHtml(next.contact)}</div>
+    <div class="meta">${next.start}–${next.end} · ${escapeHtml(next.zone)} zone · Contact: ${escapeHtml(next.contact)}</div>
   `;
 }
 
@@ -238,12 +256,19 @@ function stopCardHtml(s) {
     <div class="stop-card" data-stop="${s.id}">
       <div class="stop-top">
         <div>
-          <div class="stop-time">Visit ${s.start}–${s.end} <span style="opacity:.7;">(campus hours ${s.hours})</span></div>
+          <div class="stop-time-row">
+            <span class="stop-time-big">${s.start}–${s.end}</span>
+            <span class="zone-badge">${escapeHtml(s.zone)}</span>
+          </div>
           <div class="stop-school">${escapeHtml(s.school)}</div>
-          <div class="stop-contact">${escapeHtml(s.contact)} · ${escapeHtml(s.email)}</div>
         </div>
-        <span class="pill ${status}">${STATUS_LABELS[status]}</span>
+        <span class="pill big ${status}">${STATUS_LABELS[status]}</span>
       </div>
+      <details class="stop-details">
+        <summary>Contact &amp; campus hours</summary>
+        <div class="stop-contact">${escapeHtml(s.contact)} · ${escapeHtml(s.email)}</div>
+        <div class="stop-contact">Campus hours: ${escapeHtml(s.hours)}</div>
+      </details>
       <div class="status-buttons">
         ${STATUS_ORDER.map(
           (st) => `<button data-action="status" data-status="${st}" class="${status === st ? "active-" + st : ""}">${STATUS_LABELS[st]}</button>`
@@ -325,7 +350,7 @@ function boardStopHtml(s) {
   const status = store.getStatus(s.id);
   return `
     <div class="board-stop">
-      <div class="b-time">${s.start}–${s.end}</div>
+      <div class="b-time">${s.start}–${s.end} · ${escapeHtml(s.zone)}</div>
       <div class="b-school">${escapeHtml(s.school)}</div>
       <span class="pill ${status}">${STATUS_LABELS[status]}</span>
     </div>
