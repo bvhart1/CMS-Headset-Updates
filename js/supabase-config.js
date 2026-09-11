@@ -9,7 +9,7 @@
  * Until these are filled in, the site still loads and shows the full
  * schedule — you just won't be able to save status/notes yet.
  */
-const SUPABASE_URL = "";
-const SUPABASE_ANON_KEY = "";
+const SUPABASE_URL = "https://rkhnlluzmjyxpvrlftaw.supabase.co";
+const SUPABASE_ANON_KEY = "sb_publishable_WCRDg0j6Yz6U_7EU-E-vQw_ZxbuYC4k";
 
 const SUPABASE_CONFIGURED = Boolean(SUPABASE_URL && SUPABASE_ANON_KEY);
