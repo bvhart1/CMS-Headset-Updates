@@ -18,6 +18,19 @@ function directionsUrl(address) {
   return `https://www.google.com/maps/dir/?api=1&destination=${encodeURIComponent(address)}&travelmode=driving`;
 }
 
+// Keyless Google Maps embed (no API key needed): draws the day's stops, in
+// order, as a driving route. Single-stop days fall back to a plain pin.
+function dayMapEmbedUrl(stops) {
+  if (!stops.length) return null;
+  const addrs = stops.map((s) => encodeURIComponent(s.address));
+  if (addrs.length === 1) {
+    return `https://www.google.com/maps?q=${addrs[0]}&output=embed`;
+  }
+  const saddr = addrs[0];
+  const daddr = addrs.slice(1).join("+to:");
+  return `https://www.google.com/maps?saddr=${saddr}&daddr=${daddr}&output=embed`;
+}
+
 // ---------------------------------------------------------------------
 // Data store: talks to Supabase when configured, otherwise falls back to
 // localStorage (per-device only) so the site is usable before setup.
@@ -218,11 +231,13 @@ function stopsForMember(memberId) {
 
 function renderRoute() {
   const mine = stopsForMember(ui.memberId);
+  const byDay = { day1: [], day2: [] };
+  mine.forEach((s) => byDay[s.day].push(s));
+
+  renderRouteSummary(byDay);
   renderNextBanner(mine);
 
   const container = document.getElementById("route-days");
-  const byDay = { day1: [], day2: [] };
-  mine.forEach((s) => byDay[s.day].push(s));
 
   container.innerHTML = ["day1", "day2"]
     .map((dayKey) => {
@@ -241,6 +256,58 @@ function renderRoute() {
     .join("");
 
   wireStopCardEvents(container);
+}
+
+function daySummaryStats(stops) {
+  if (!stops.length) return null;
+  const zones = [...new Set(stops.map((s) => s.zone))];
+  const totalBufferMin = stops.slice(1).reduce((sum, s, i) => sum + (parseTimeToMinutes(s.start) - parseTimeToMinutes(stops[i].end)), 0);
+  return {
+    count: stops.length,
+    zones,
+    start: stops[0].start,
+    end: stops[stops.length - 1].end,
+    totalBufferMin,
+  };
+}
+
+function renderRouteSummary(byDay) {
+  const wrap = document.getElementById("route-summary");
+  const days = ["day1", "day2"].filter((d) => byDay[d].length);
+
+  if (!days.length) {
+    wrap.innerHTML = "";
+    return;
+  }
+
+  wrap.innerHTML = `
+    <div class="route-summary-card">
+      <h2>${memberName(ui.memberId)}'s route</h2>
+      <div class="summary-days">
+        ${days
+          .map((dayKey) => {
+            const stops = byDay[dayKey];
+            const stat = daySummaryStats(stops);
+            const mapUrl = dayMapEmbedUrl(stops);
+            return `
+              <div class="summary-day">
+                <div class="summary-day-head">
+                  <strong>${DAY_LABELS[dayKey]}</strong>
+                  <span>${stat.count} stop${stat.count === 1 ? "" : "s"} · ${stat.start}–${stat.end} · ${escapeHtml(stat.zones.join(" + "))}${
+              stat.totalBufferMin ? ` · ~${stat.totalBufferMin} min drive buffer` : ""
+            }</span>
+                </div>
+                <ol class="summary-stop-list">
+                  ${stops.map((s) => `<li>${s.start} ${escapeHtml(s.school)}</li>`).join("")}
+                </ol>
+                ${mapUrl ? `<iframe class="route-map" src="${mapUrl}" loading="lazy" referrerpolicy="no-referrer-when-downgrade" title="${DAY_LABELS[dayKey]} map for ${escapeHtml(memberName(ui.memberId))}"></iframe>` : ""}
+              </div>
+            `;
+          })
+          .join("")}
+      </div>
+    </div>
+  `;
 }
 
 function travelGapHtml(prev, next) {

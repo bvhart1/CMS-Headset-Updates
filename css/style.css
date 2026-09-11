@@ -200,6 +200,66 @@ section.view.active {
   color: var(--text);
 }
 
+.route-summary-card {
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 16px;
+  margin-bottom: 18px;
+}
+
+.route-summary-card h2 {
+  margin: 0 0 12px;
+  font-size: 1.1rem;
+  color: var(--brand-dark);
+}
+
+.summary-days {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: 14px;
+}
+
+.summary-day {
+  background: var(--bg);
+  border-radius: 9px;
+  padding: 12px;
+}
+
+.summary-day-head {
+  margin-bottom: 8px;
+}
+
+.summary-day-head strong {
+  display: block;
+  font-size: 0.92rem;
+  color: var(--text);
+}
+
+.summary-day-head span {
+  font-size: 0.8rem;
+  color: var(--text-muted);
+}
+
+.summary-stop-list {
+  margin: 0 0 10px;
+  padding-left: 18px;
+  font-size: 0.82rem;
+  color: var(--text-muted);
+}
+
+.summary-stop-list li {
+  margin-bottom: 2px;
+}
+
+.route-map {
+  width: 100%;
+  aspect-ratio: 16 / 10;
+  border: 1px solid var(--border);
+  border-radius: 7px;
+  max-width: 100%;
+}
+
 .next-banner {
   background: linear-gradient(135deg, var(--brand), var(--brand-dark));
   color: #fff;
