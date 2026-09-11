@@ -137,7 +137,6 @@ const store = {
 // ---------------------------------------------------------------------
 const ui = {
   memberId: localStorage.getItem("cms_member_id") || TEAM[0].id,
-  authorName: localStorage.getItem("cms_author_name") || "",
   activeTab: "route",
   noteFilter: "",
 };
@@ -218,8 +217,6 @@ function renderConfigBanner() {
 function renderMemberSelect() {
   const select = document.getElementById("member-select");
   select.innerHTML = TEAM.map((t) => `<option value="${t.id}" ${t.id === ui.memberId ? "selected" : ""}>${t.name}</option>`).join("");
-  const nameInput = document.getElementById("author-name");
-  nameInput.value = ui.authorName;
 }
 
 function stopsForMember(memberId) {
@@ -406,8 +403,7 @@ function wireStopCardEvents(container) {
     const stopId = card.dataset.stop;
     card.querySelectorAll('[data-action="status"]').forEach((btn) => {
       btn.addEventListener("click", () => {
-        const author = ui.authorName || memberName(ui.memberId);
-        store.setStatus(stopId, btn.dataset.status, author);
+        store.setStatus(stopId, btn.dataset.status, memberName(ui.memberId));
       });
     });
     const addBtn = card.querySelector('[data-action="add-note"]');
@@ -415,8 +411,7 @@ function wireStopCardEvents(container) {
     addBtn.addEventListener("click", () => {
       const text = textarea.value.trim();
       if (!text) return;
-      const author = ui.authorName || memberName(ui.memberId);
-      store.addNote(stopId, author, text);
+      store.addNote(stopId, memberName(ui.memberId), text);
       textarea.value = "";
     });
   });
@@ -505,11 +500,6 @@ function initControls() {
     ui.memberId = e.target.value;
     localStorage.setItem("cms_member_id", ui.memberId);
     renderRoute();
-  });
-
-  document.getElementById("author-name").addEventListener("input", (e) => {
-    ui.authorName = e.target.value;
-    localStorage.setItem("cms_author_name", ui.authorName);
   });
 
   document.getElementById("notes-search").addEventListener("input", (e) => {
