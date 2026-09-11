@@ -280,9 +280,14 @@ function renderRouteSummary(byDay) {
     return;
   }
 
+  const totalStops = days.reduce((sum, d) => sum + byDay[d].length, 0);
+
   wrap.innerHTML = `
-    <div class="route-summary-card">
-      <h2>${memberName(ui.memberId)}'s route</h2>
+    <details class="route-summary-card">
+      <summary>
+        <span class="summary-title">${escapeHtml(memberName(ui.memberId))}'s route summary</span>
+        <span class="summary-subtitle">${totalStops} stop${totalStops === 1 ? "" : "s"} over ${days.length} day${days.length === 1 ? "" : "s"} · tap to view map &amp; details</span>
+      </summary>
       <div class="summary-days">
         ${days
           .map((dayKey) => {
@@ -306,7 +311,7 @@ function renderRouteSummary(byDay) {
           })
           .join("")}
       </div>
-    </div>
+    </details>
   `;
 }
 
