@@ -367,7 +367,7 @@ function stopCardHtml(s) {
       </div>
       <details class="stop-details">
         <summary>Contact, address &amp; campus hours</summary>
-        <div class="stop-contact">${escapeHtml(s.contact)} · ${escapeHtml(s.email)}</div>
+        <div class="stop-contact">${escapeHtml(s.contact)}${s.email ? " · " + escapeHtml(s.email) : ""}</div>
         <div class="stop-contact">${escapeHtml(s.address)}</div>
         <div class="stop-contact">Campus hours: ${escapeHtml(s.hours)}</div>
       </details>

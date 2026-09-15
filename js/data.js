@@ -9,11 +9,14 @@
  * edit: every stop is one object below. Reassign a stop by changing its
  * `member` field to a different id from TEAM, or drag times around.
  *
- * Stop counts are balanced as evenly as the real geography allows (4-5-4-
- * 3-3-3-3-3 rather than everyone at exactly 3.5): University City's 5
+ * Stop counts are balanced as evenly as the real geography allows (5-4-4-
+ * 4-3-3-3-3 rather than everyone at exactly 3.625): University City's 5
  * schools are all a genuine 5-10 min apart, so splitting that cluster
  * across two people would only even out headcount at the cost of more
- * driving -- everyone else lands at 3 or 4.
+ * driving -- everyone else lands at 3 or 4. Berryhill School was added
+ * after a later signup round (2026-09-15) and slotted into Team Member
+ * 8's existing Southwest Charlotte / Steele Creek route, since it's a
+ * short hop from Olympic HS and Kennedy MS.
  *
  * Travel time: gaps between same-day stops are still a placeholder (~20
  * min), not a real routing calculation -- but now that stops are grouped
@@ -78,10 +81,11 @@ const STOPS = [
   { id: "south-charlotte-ms", school: "South Charlotte MS", address: "8040 Strawberry Ln, Charlotte, NC 28277", contact: "Troy King", email: "troym.king@cms.k12.nc.us", hours: "8:30a-3:30p", zone: "Ballantyne", member: "jackie", day: "day1", start: "9:10a", end: "10:55a" },
   { id: "community-house-ms", school: "Community House Middle School", address: "9500 Community House Rd, Charlotte, NC 28277", contact: "Christine Miller", email: "christinea.miller@cms.k12.nc.us", hours: "9:15a-4:10p", zone: "Ballantyne", member: "jackie", day: "day2", start: "9:15a", end: "11:00a" },
 
-  // ---- Team Member 8 — Southwest Charlotte / Steele Creek (3) ----
+  // ---- Team Member 8 — Southwest Charlotte / Steele Creek (4) ----
   { id: "olympic-hs", school: "Olympic High School", address: "4301 Sandy Porter Rd, Charlotte, NC 28273", contact: "Lisa Robinson / Tiffany Johnson", email: "melonie.robinson@cms.k12.nc.us", hours: "6:45a-2:15p", zone: "Southwest Charlotte", member: "tm8", day: "day1", start: "6:45a", end: "8:30a" },
   { id: "kennedy-ms", school: "Kennedy Middle School", address: "4000 Gallant Ln, Charlotte, NC 28273", contact: "Tasha Sherrill", email: "tashas.sherrill@cms.k12.nc.us", hours: "9:15a-4:15p", zone: "Southwest Charlotte", member: "tm8", day: "day1", start: "9:15a", end: "11:00a" },
   { id: "charlotte-virtual", school: "Charlotte Virtual", address: "7030 Nations Ford Rd, Charlotte, NC 28217 (unconfirmed -- verify with contact)", contact: "Terri Donegan-Sanchez", email: "tl.donegan-sanchez@cms.k12.nc.us", hours: "7:00a-10:00a (short window)", zone: "Southwest Charlotte", member: "tm8", day: "day2", start: "7:00a", end: "8:45a" },
+  { id: "berryhill-school", school: "Berryhill School", address: "10501 Windy Grove Rd, Charlotte, NC 28278", contact: "Contact not yet submitted", email: "", hours: "8:30a-3:30p", zone: "Southwest Charlotte", member: "tm8", day: "day2", start: "9:05a", end: "10:50a" },
 
   // ---- Team Member 7 — West Charlotte / Uptown (3) ----
   { id: "druid-hills-academy", school: "Druid Hills Academy", address: "2801 Lucena St, Charlotte, NC 28206", contact: "Valerie Walker", email: "valeriel.walker@cms.k12.nc.us", hours: "8:00a-3:00p", zone: "West Charlotte/Uptown", member: "tm7", day: "day1", start: "8:00a", end: "9:45a" },
