@@ -425,7 +425,7 @@ function renderBoard() {
     const day2 = stops.filter((s) => s.day === "day2");
     return `
       <tr>
-        <td class="member-cell">${t.name}</td>
+        <td class="member-cell">${escapeHtml(t.name)}${t.phone ? `<br><a class="member-phone" href="tel:${t.phone.replace(/[^0-9+]/g, "")}">${escapeHtml(t.phone)}</a>` : ""}</td>
         <td>${day1.map(boardStopHtml).join("") || "<em>—</em>"}</td>
         <td>${day2.map(boardStopHtml).join("") || "<em>—</em>"}</td>
       </tr>

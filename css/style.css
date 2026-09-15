@@ -592,6 +592,13 @@ table.board td.member-cell {
   background: var(--bg);
 }
 
+.member-phone {
+  font-weight: 400;
+  font-size: 0.78rem;
+  color: var(--brand);
+  text-decoration: none;
+}
+
 .board-stop {
   margin-bottom: 6px;
   padding-bottom: 6px;
