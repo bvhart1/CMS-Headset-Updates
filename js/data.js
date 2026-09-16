@@ -25,13 +25,16 @@
  * between South Charlotte and Steele Creek in one day.
  *
  * West Mecklenburg High School (added 2026-09-16, contact Sherri Moore --
- * no hours submitted yet) sits on Larry's day 2 right next to Wilson STEM
- * Academy -- both on Tuckaseegee Rd, a couple minutes apart. Berryhill
- * School moved from Larry to Joe's day 2 (joining Olympic/Kennedy in the
- * Steele Creek corridor) to keep Larry's day from getting too long.
+ * no hours submitted yet) is on LaPaul's day 2, by request -- it's
+ * actually on the opposite side of the county from his other stops
+ * (Matthews/Mint Hill and East Charlotte), so it's given a longer-than-
+ * usual travel buffer (25 min instead of the normal ~20) to reflect that
+ * real cross-town drive. Berryhill School moved from Larry to Joe's day 2
+ * (joining Olympic/Kennedy in the Steele Creek corridor) to keep Larry's
+ * day from getting too long after an earlier pass, and stayed there.
  *
- * Stop counts: 5-4-4-5-4-3-2-3 (Larry's 3 + Johnnie-Lynn's 2 count as one
- * 5-school slot). University City's 5 schools are a genuine 5-10 min
+ * Stop counts: 5-5-4-4-4-4-2-2 (Larry's 2 + Johnnie-Lynn's 2 count as one
+ * 4-school slot). University City's 5 schools are a genuine 5-10 min
  * apart, so that cluster stays with one person (Luanne) rather than
  * being split just to even out headcount.
  *
@@ -76,12 +79,11 @@ const STOPS = [
   { id: "francis-bradley-ms", school: "Francis Bradley Middle School", address: "13345 Beatties Ford Rd, Huntersville, NC 28078", contact: "Helen Burch", email: "helene.burch@cms.k12.nc.us", hours: "9:15a-4:15p", zone: "Huntersville/Cornelius", member: "ben", day: "day2", start: "9:15a", end: "11:00a" },
   { id: "bailey-ms", school: "Bailey Middle School", address: "11900 Bailey Rd, Cornelius, NC 28031", contact: "Livanga Hines", email: "livanga1.hines@cms.k12.nc.us", hours: "9:15a-4:15p", zone: "Huntersville/Cornelius", member: "ben", day: "day2", start: "11:20a", end: "1:05p" },
 
-  // ---- Johnnie-Lynn Crosby (day 1) / Larry Bennett (day 2) — West Charlotte/Uptown + Southwest Charlotte (5) ----
+  // ---- Johnnie-Lynn Crosby (day 1) / Larry Bennett (day 2) — West Charlotte/Uptown + Southwest Charlotte (4) ----
   { id: "druid-hills-academy", school: "Druid Hills Academy", address: "2801 Lucena St, Charlotte, NC 28206", contact: "Valerie Walker", email: "valeriel.walker@cms.k12.nc.us", hours: "8:00a-3:00p", zone: "West Charlotte/Uptown", member: "johnnielynn", day: "day1", start: "8:00a", end: "9:45a" },
   { id: "oaklawn-language-academy", school: "Oaklawn Language Academy", address: "1810 Oaklawn Ave, Charlotte, NC 28216", contact: "Valerie Walker / Suzette Brown", email: "valeriel.walker@cms.k12.nc.us", hours: "9:15a-4:15p", zone: "West Charlotte/Uptown", member: "johnnielynn", day: "day1", start: "10:05a", end: "11:50a" },
   { id: "charlotte-virtual", school: "Charlotte Virtual", address: "7030 Nations Ford Rd, Charlotte, NC 28217 (unconfirmed -- verify with contact)", contact: "Terri Donegan-Sanchez", email: "tl.donegan-sanchez@cms.k12.nc.us", hours: "7:00a-10:00a (short window)", zone: "Southwest Charlotte", member: "larry", day: "day2", start: "7:00a", end: "8:45a" },
   { id: "wilson-stem-academy", school: "Wilson STEM Academy", address: "7020 Tuckaseegee Rd, Charlotte, NC 28214", contact: "Tangee Kizer", email: "tangeeb.kizer@cms.k12.nc.us", hours: "8:45a-4:15p", zone: "West Charlotte/Uptown", member: "larry", day: "day2", start: "9:10a", end: "10:55a" },
-  { id: "west-mecklenburg-hs", school: "West Mecklenburg High School", address: "7400 Tuckaseegee Rd, Charlotte, NC 28214", contact: "Sherri Moore", email: "sherril.moore@cms.k12.nc.us", hours: "Not yet submitted -- assumed within a normal school day; confirm with contact", zone: "West Charlotte/Uptown", member: "larry", day: "day2", start: "11:15a", end: "1:00p" },
 
   // ---- Celina Stone — East Charlotte (4) ----
   { id: "garinger-hs", school: "Garinger High School", address: "1100 Eastway Dr, Charlotte, NC 28205", contact: "Trib Williamson", email: "tribut.williamson@cms.k12.nc.us", hours: "7:00a-2:30p", zone: "East Charlotte", member: "celina", day: "day1", start: "7:00a", end: "8:45a" },
@@ -102,8 +104,9 @@ const STOPS = [
   { id: "ballantyne-ridge-hs", school: "Ballantyne Ridge HS", address: "4004 Toringdon Way, Charlotte, NC 28277", contact: "Katherine Fisher", email: "katherineb.fisher@cms.k12.nc.us", hours: "7:15a-2:15p", zone: "Ballantyne", member: "jackie", day: "day2", start: "7:15a", end: "9:00a" },
   { id: "community-house-ms", school: "Community House Middle School", address: "9500 Community House Rd, Charlotte, NC 28277", contact: "Christine Miller", email: "christinea.miller@cms.k12.nc.us", hours: "9:15a-4:10p", zone: "Ballantyne", member: "jackie", day: "day2", start: "9:20a", end: "11:05a" },
 
-  // ---- LaPaul E. Shelton — Matthews / Mint Hill + Independence (3) ----
+  // ---- LaPaul E. Shelton — Matthews / Mint Hill + Independence + West Mecklenburg (4) ----
   { id: "butler-hs", school: "David W. Butler High School", address: "1810 Matthews-Mint Hill Rd, Matthews, NC 28105", contact: "Jessica Walker", email: "jessicam.walker@cms.k12.nc.us", hours: "7:15a-2:30p", zone: "Matthews/Mint Hill", member: "lapaul", day: "day1", start: "7:15a", end: "9:00a" },
   { id: "mint-hill-ms", school: "Mint Hill Middle School", address: "11501 Idlewild Rd, Matthews, NC 28105", contact: "Tressa Blake", email: "tressa.blake@cms.k12.nc.us", hours: "8:15a-3:15p", zone: "Matthews/Mint Hill", member: "lapaul", day: "day1", start: "9:20a", end: "11:05a" },
   { id: "independence-hs", school: "Independence High School", address: "1967 Patriot Dr, Charlotte, NC 28227", contact: "Charise Thomas", email: "charise.thomas@cms.k12.nc.us", hours: "7:15a-2:15p", zone: "East Charlotte", member: "lapaul", day: "day2", start: "7:15a", end: "9:00a" },
+  { id: "west-mecklenburg-hs", school: "West Mecklenburg High School", address: "7400 Tuckaseegee Rd, Charlotte, NC 28214", contact: "Sherri Moore", email: "sherril.moore@cms.k12.nc.us", hours: "Not yet submitted -- assumed within a normal school day; confirm with contact", zone: "West Charlotte/Uptown", member: "lapaul", day: "day2", start: "9:40a", end: "11:25a" },
 ];
