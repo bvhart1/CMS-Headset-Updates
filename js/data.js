@@ -19,12 +19,18 @@
  * Team Member 8 (Southwest Charlotte / Steele Creek) is not on this
  * roster, so their 4 schools were redistributed to whoever's route
  * already passes near that corridor: Olympic HS + Kennedy MS to Joe's
- * day 2, and Charlotte Virtual + Berryhill School to Larry's day 2.
- * Ballantyne Ridge HS moved from Joe to Jackie's day 2 in the same pass,
- * to keep it with her other Ballantyne (28277) stops instead of making
- * Joe zig-zag between South Charlotte and Steele Creek in one day.
+ * day 2, and Charlotte Virtual to Larry's day 2. Ballantyne Ridge HS
+ * moved from Joe to Jackie's day 2 in the same pass, to keep it with
+ * her other Ballantyne (28277) stops instead of making Joe zig-zag
+ * between South Charlotte and Steele Creek in one day.
  *
- * Stop counts: 5-4-4-4-4-3-2-3 (Larry's 3 + Johnnie-Lynn's 2 count as one
+ * West Mecklenburg High School (added 2026-09-16, contact Sherri Moore --
+ * no hours submitted yet) sits on Larry's day 2 right next to Wilson STEM
+ * Academy -- both on Tuckaseegee Rd, a couple minutes apart. Berryhill
+ * School moved from Larry to Joe's day 2 (joining Olympic/Kennedy in the
+ * Steele Creek corridor) to keep Larry's day from getting too long.
+ *
+ * Stop counts: 5-4-4-5-4-3-2-3 (Larry's 3 + Johnnie-Lynn's 2 count as one
  * 5-school slot). University City's 5 schools are a genuine 5-10 min
  * apart, so that cluster stays with one person (Luanne) rather than
  * being split just to even out headcount.
@@ -75,7 +81,7 @@ const STOPS = [
   { id: "oaklawn-language-academy", school: "Oaklawn Language Academy", address: "1810 Oaklawn Ave, Charlotte, NC 28216", contact: "Valerie Walker / Suzette Brown", email: "valeriel.walker@cms.k12.nc.us", hours: "9:15a-4:15p", zone: "West Charlotte/Uptown", member: "johnnielynn", day: "day1", start: "10:05a", end: "11:50a" },
   { id: "charlotte-virtual", school: "Charlotte Virtual", address: "7030 Nations Ford Rd, Charlotte, NC 28217 (unconfirmed -- verify with contact)", contact: "Terri Donegan-Sanchez", email: "tl.donegan-sanchez@cms.k12.nc.us", hours: "7:00a-10:00a (short window)", zone: "Southwest Charlotte", member: "larry", day: "day2", start: "7:00a", end: "8:45a" },
   { id: "wilson-stem-academy", school: "Wilson STEM Academy", address: "7020 Tuckaseegee Rd, Charlotte, NC 28214", contact: "Tangee Kizer", email: "tangeeb.kizer@cms.k12.nc.us", hours: "8:45a-4:15p", zone: "West Charlotte/Uptown", member: "larry", day: "day2", start: "9:10a", end: "10:55a" },
-  { id: "berryhill-school", school: "Berryhill School", address: "10501 Windy Grove Rd, Charlotte, NC 28278", contact: "Contact not yet submitted", email: "", hours: "8:30a-3:30p", zone: "Southwest Charlotte", member: "larry", day: "day2", start: "11:20a", end: "1:05p" },
+  { id: "west-mecklenburg-hs", school: "West Mecklenburg High School", address: "7400 Tuckaseegee Rd, Charlotte, NC 28214", contact: "Sherri Moore", email: "sherril.moore@cms.k12.nc.us", hours: "Not yet submitted -- assumed within a normal school day; confirm with contact", zone: "West Charlotte/Uptown", member: "larry", day: "day2", start: "11:15a", end: "1:00p" },
 
   // ---- Celina Stone — East Charlotte (4) ----
   { id: "garinger-hs", school: "Garinger High School", address: "1100 Eastway Dr, Charlotte, NC 28205", contact: "Trib Williamson", email: "tribut.williamson@cms.k12.nc.us", hours: "7:00a-2:30p", zone: "East Charlotte", member: "celina", day: "day1", start: "7:00a", end: "8:45a" },
@@ -83,11 +89,12 @@ const STOPS = [
   { id: "east-mecklenburg-hs", school: "East Mecklenburg High School", address: "6800 Monroe Rd, Charlotte, NC 28212", contact: "Betsy McGraw", email: "elizabeth.mcgraw@cms.k12.nc.us", hours: "6:45a-2:15p", zone: "East Charlotte", member: "celina", day: "day2", start: "6:45a", end: "8:30a" },
   { id: "mcclintock-ms", school: "McClintock Middle School", address: "1925 Rama Rd, Charlotte, NC 28212", contact: "Tammy Newton", email: "tammy1.newton@cms.k12.nc.us", hours: "8:00a-3:30p", zone: "East Charlotte", member: "celina", day: "day2", start: "8:50a", end: "10:35a" },
 
-  // ---- Joe Guillen — South Charlotte + Southwest Charlotte (4) ----
+  // ---- Joe Guillen — South Charlotte + Southwest Charlotte (5) ----
   { id: "south-mecklenburg-hs", school: "South Mecklenburg High", address: "8900 Park Rd, Charlotte, NC 28210", contact: "Hermia Snipes", email: "hermiab.snipes@cms.k12.nc.us", hours: "7:15a-2:15p", zone: "South Charlotte", member: "joe", day: "day1", start: "7:15a", end: "9:00a" },
   { id: "providence-hs", school: "Providence High School", address: "1800 Pineville-Matthews Rd, Charlotte, NC 28270", contact: "Danielle Grecu", email: "daniellem.grecu@cms.k12.nc.us", hours: "7:15a-2:15p", zone: "South Charlotte", member: "joe", day: "day1", start: "9:20a", end: "11:05a" },
   { id: "olympic-hs", school: "Olympic High School", address: "4301 Sandy Porter Rd, Charlotte, NC 28273", contact: "Lisa Robinson / Tiffany Johnson", email: "melonie.robinson@cms.k12.nc.us", hours: "6:45a-2:15p", zone: "Southwest Charlotte", member: "joe", day: "day2", start: "6:45a", end: "8:30a" },
   { id: "kennedy-ms", school: "Kennedy Middle School", address: "4000 Gallant Ln, Charlotte, NC 28273", contact: "Tasha Sherrill", email: "tashas.sherrill@cms.k12.nc.us", hours: "9:15a-4:15p", zone: "Southwest Charlotte", member: "joe", day: "day2", start: "9:15a", end: "11:00a" },
+  { id: "berryhill-school", school: "Berryhill School", address: "10501 Windy Grove Rd, Charlotte, NC 28278", contact: "Contact not yet submitted", email: "", hours: "8:30a-3:30p", zone: "Southwest Charlotte", member: "joe", day: "day2", start: "11:20a", end: "1:05p" },
 
   // ---- Jackie Smalls — Ballantyne core (4) ----
   { id: "jay-robinson-ms", school: "Jay M. Robinson Middle School", address: "5925 Ballantyne Commons Pkwy, Charlotte, NC 28277", contact: "Suzie Melton", email: "suzannee.melton@cms.k12.nc.us", hours: "8:00a-3:00p (on site by 7:05a)", zone: "Ballantyne", member: "jackie", day: "day1", start: "7:05a", end: "8:50a" },
